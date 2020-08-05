@@ -5,11 +5,11 @@ const http = require('http');
 const config = require('../config')[process.env.NODE_ENV || 'development'];
 
 const log = config.log();
-const app = require('../server/app')(config);
+const app = require('../app')(config);
 
 const server = http.createServer(app);
 
-server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 8080);
 
 server.on('listening', () => {
   log.info(
