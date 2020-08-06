@@ -1,15 +1,30 @@
 #!/usr/bin/env node
-
+require('dotenv').config();
 const http = require('http');
-
+const redis = require('redis');
 const config = require('../config')[process.env.NODE_ENV || 'development'];
-
 const log = config.log();
+const db = require('../lib/db');
+
+const redisClient = redis.createClient(config.database.redis.options);
+redisClient.on('ready', () => {
+  log.info('Connected to Redis')
+});
+
+config.database.redis.client = redisClient;
+
 const app = require('../app')(config);
 
 const server = http.createServer(app);
 
-server.listen(process.env.PORT || 8080);
+const port = process.env.PORT || 8080;
+
+db.connect(config.database.mongo.dsn).then(() => {
+  log.info('Connect to MongoDB');
+  server.listen(port);
+}).catch((err) => {
+  log.fatal(err);
+})
 
 server.on('listening', () => {
   log.info(

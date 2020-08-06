@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 const app = express();
 
 const auth = require('./lib/auth');
@@ -19,7 +20,10 @@ module.exports = (config) => {
     secret: "this is a secret",
     name: "sessionId",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new RedisStore({
+      client: config.database.redis.client
+    })
   }));
 
   app.use(auth.initialize);
