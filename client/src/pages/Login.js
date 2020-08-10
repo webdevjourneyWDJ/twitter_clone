@@ -2,12 +2,15 @@ import React, { useContext } from 'react';
 import{UserContext} from '../UserContext';
 
 function Login() {
-  const msg = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   return (
     <div className="login">
       <h1>Login page</h1>
-      <p>{msg}</p>
+      {user && <h2>Welcome {user.name}</h2>}
+      <a href="http://localhost:8080/auth/google">Login with Google</a>
+      <a href="http://localhost:8080/auth/logout">Logout</a>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
   );
 }

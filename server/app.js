@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const app = express();
@@ -8,6 +9,7 @@ const routes = require('./routes');
 
 module.exports = (config) => {
   const log = config.log();
+  app.use(cors({credentials: true, origin:"http://localhost:3000"}));
   // Add a request logging middleware in development mode
   if (app.get('env') === 'development') {
     app.use((req, res, next) => {

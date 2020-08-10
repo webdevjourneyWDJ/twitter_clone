@@ -2,12 +2,12 @@ import React, {useContext} from 'react';
 import{UserContext} from '../UserContext';
 
 function Home() {
-  const msg = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   return (
     <div className="home">
       <h1>Home page</h1>
-      <p>{msg}</p>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
   );
 }

@@ -1,0 +1,11 @@
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav .nav_links{
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+}
