@@ -7,9 +7,16 @@ const app = express();
 const auth = require('./lib/auth');
 const routes = require('./routes');
 
+const TweetService = require('./services/TweetService');
+
 module.exports = (config) => {
   const log = config.log();
+
+  const tweetService = new TweetService();
+
   app.use(cors({credentials: true, origin:"http://localhost:3000"}));
+  app.use(express.urlencoded({extended: true}));
+  app.use(express.json());
   // Add a request logging middleware in development mode
   if (app.get('env') === 'development') {
     app.use((req, res, next) => {
@@ -31,7 +38,7 @@ module.exports = (config) => {
   app.use(auth.initialize);
   app.use(auth.session);
 
-  app.use('/', routes());
+  app.use('/', routes({tweetService}));
 
   // eslint-disable-next-line no-unused-vars
   app.use((error, req, res, next) => {
