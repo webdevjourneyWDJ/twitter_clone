@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Tweet() {
+function Tweet({message, userName}) {
 
   return (
     <div className="card"> 
-      <p>name</p>
-      <p>message</p>
+      <p>{userName}</p>
+      <p>{message}</p>
       <div>
         <p>icon</p>
         <p>icon</p>
