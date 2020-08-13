@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TwwetSchema = mongoose.Schema({
+const TweetSchema = mongoose.Schema({
   message: {
     type: String,
     required: true
@@ -11,7 +11,7 @@ const TwwetSchema = mongoose.Schema({
   }
 }, { timestamps: true });
 
-const Tweet = mongoose.model('Tweet', TwwetSchema);
+const Tweet = mongoose.model('Tweet', TweetSchema);
 
 module.exports = {
   Tweet

@@ -16,3 +16,11 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8rem;
+}

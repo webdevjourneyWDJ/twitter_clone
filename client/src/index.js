@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/styles.scss';
+import './fontawesome';
 import Routes from './Routes';
 import * as serviceWorker from './serviceWorker';
 

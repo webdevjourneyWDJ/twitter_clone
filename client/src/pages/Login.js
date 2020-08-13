@@ -5,7 +5,7 @@ function Login() {
   const {user} = useContext(UserContext);
 
   return (
-    <div className="login">
+    <div className="login section">
       <h1>Login page</h1>
       {user && <h2>Welcome {user.name}</h2>}
       <a href="http://localhost:8080/auth/google">Login with Google</a>

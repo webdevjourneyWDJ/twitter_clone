@@ -18,14 +18,14 @@ function Routes() {
   return (
     <div className="routes">
       <Router>
-        <Nav />
-        <Switch>
-          <UserContext.Provider value={{user, setUser}}>
+        <UserContext.Provider value={{user, setUser}}>
+          <Nav />
+          <Switch>
             <Route exact path="/" component={Login}></Route>
             <Route exact path="/home" component={Home}></Route>
             <Route exact path="/profile" component={Profile}></Route>
-          </UserContext.Provider>
-        </Switch>
+          </Switch>
+        </UserContext.Provider>
       </Router>
     </div>
   );

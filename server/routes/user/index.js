@@ -18,7 +18,9 @@ module.exports = (params) => {
     const tweet = await tweetService.addTweet(message, userId);
     User.findById(userId).then(user => {
       user.tweetsCreated.push(tweet);
-      user.save().then(user => res.json({tweets: user.tweetsCreated}));
+      user.save().then(user => {
+        user.populate('tweetsCreated').execPopulate().then(result => res.json({tweets: result.tweetsCreated}));
+      });
     })
   })
 
