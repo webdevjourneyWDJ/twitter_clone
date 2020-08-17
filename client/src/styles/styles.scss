@@ -1,5 +1,8 @@
 @import './base/settings';
 @import './base/base';
+
+@import './pages/profile.scss';
+
 @import './components/nav';
 @import './components/tweetForm';
 @import './components/tweet';

@@ -12,7 +12,7 @@ function Nav() {
         <NavLink to="/">Login</NavLink>
         <NavLink to="/home">Home</NavLink>
         <NavLink to="/profile">Profile</NavLink>
-        <div onClick={() => {setDisplay(!display)}}>Tweet</div>
+        <div className="tweet" onClick={() => {setDisplay(!display)}}>Tweet</div>
         {display && <TweetForm state={{display, setDisplay}}/>}
       </div>
     </nav>

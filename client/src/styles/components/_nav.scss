@@ -2,10 +2,26 @@ nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
+  position: fixed;
+  top: 2rem;
+  width: 100%;
 
-nav .nav_links{
-  display: flex;
-  justify-content: space-between;
-  width: 20%;
+  .nav_links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+
+    .tweet{
+      cursor: pointer;
+      background: lighten($purple, 25%);
+      height: 3rem;
+      width: 9rem;
+      border-radius: 15px;
+      line-height: 3rem;
+      text-align: center;
+      color: $white;
+      font-weight: 500;
+    }
+  }
 }
