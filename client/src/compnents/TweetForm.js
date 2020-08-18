@@ -10,7 +10,7 @@ function TweetForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8080/user/tweet', {message, userId: user.userId}, {withCredentials: true}).then(data => {
+    axios.post('http://localhost:8080/user/tweet', {message}, {withCredentials: true}).then(data => {
       console.log(data);
       props.state.setDisplay(false);
     });

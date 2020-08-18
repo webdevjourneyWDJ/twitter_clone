@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const {User} = require('../../models/UserModel');
-
 module.exports = (params) => {
 
-  const {tweetService} = params;
+  const {tweetService, userService} = params;
 
   router.get('/', (req, res, next) => {
     return res.json({
@@ -14,20 +12,23 @@ module.exports = (params) => {
   })
 
   router.get('/tweets', async (req, res, next) => {
-    User.findById(req.user._id).then(user => {
-      user.populate('tweetsCreated').execPopulate().then(result => 
-        res.json({tweets: result.tweetsCreated}
-      ));
-    })
+    try {
+      const userTweets = await userService.getAllTweets(req.user._id);
+      return res.json({tweets: userTweets.tweetsCreated});
+    } catch (err) {
+      return next(err);
+    }
   })
 
   router.post('/tweet', async (req, res, next) => {
-    const {message, userId} = req.body;
-    const tweet = await tweetService.addTweet(message, userId);
-    User.findById(userId).then(user => {
-      user.tweetsCreated.push(tweet);
-      user.save().then(user => res.json({message: "successfully added tweet"}));
-    })
+    const {message} = req.body;
+    try {
+      const tweet = await tweetService.addTweet(message, req.user._id);
+      await userService.addTweet(req.user._id, tweet);
+      return res.json({message: "added tweet to user"});
+    } catch (err) {
+      return next(err);
+    }
   })
 
   return router;
