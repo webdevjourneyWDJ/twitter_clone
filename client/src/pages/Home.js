@@ -2,14 +2,14 @@ import React, {useContext, useEffect, useState} from 'react';
 import Tweet from '../compnents/Tweet';
 
 import{UserContext} from '../UserContext';
-import axios from 'axios';
+import ApiService from '../services/ApiService';
 
 function Home() {
   const {user} = useContext(UserContext);
   const [tweets, setTweets] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/tweets', {withCredentials: true}).then(x => setTweets(x.data.tweets));
+   ApiService.getAllTweets().then(x => setTweets(x.data.tweets));
   }, [])
 
   return (

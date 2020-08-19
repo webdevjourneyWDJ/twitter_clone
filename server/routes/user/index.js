@@ -6,9 +6,15 @@ module.exports = (params) => {
   const {tweetService, userService} = params;
 
   router.get('/', (req, res, next) => {
-    return res.json({
-      name: req.user.name,
-      userId: req.user._id})
+    if(req.isAuthenticated()){
+      return res.json({
+        name: req.user.name,
+        userId: req.user._id,
+        isAuth: req.isAuthenticated()
+      })
+    }
+
+    return res.json({isAuth: req.isAuthenticated()});
   })
 
   router.get('/tweets', async (req, res, next) => {

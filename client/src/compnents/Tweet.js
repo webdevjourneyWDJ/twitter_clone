@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import ApiService from '../services/ApiService';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from 'classnames';
@@ -9,7 +9,7 @@ function Tweet({message, userName, tweetId, tweetLiked, userId}) {
 
   const handleLiked = () => {
     setLiked(!liked);
-    axios.post('http://localhost:8080/tweets/liked', {tweetId}, {withCredentials: true});
+    ApiService.postTweetLiked(tweetId);
   }
 
   return (

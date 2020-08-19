@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import{UserContext} from '../UserContext';
-import axios from 'axios';
+import ApiService from '../services/ApiService';
 
 import Tweet from '../compnents/Tweet';
 
@@ -9,7 +9,7 @@ function Profile() {
   const [tweets, setTweets] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/user/tweets', {withCredentials: true}).then(x => setTweets(x.data.tweets));
+    ApiService.getUserTweets().then(x => setTweets(x.data.tweets));
   }, [])
 
   return (

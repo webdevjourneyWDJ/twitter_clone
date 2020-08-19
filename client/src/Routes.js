@@ -1,34 +1,56 @@
 import React, { useEffect, useState } from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import Nav from './compnents/Nav';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 
 import {UserContext} from './UserContext';
-import axios from 'axios';
+import ApiService from './services/ApiService';
 
 function Routes() {
   const [user, setUser] = useState(null);
 
+  const PrivateRoute = ({component: Component, ...rest}) => (
+    <Route {...rest} render={props => 
+      user.isAuth ? (
+        <div>
+          <Nav />
+          <Component {...props} />
+        </div>
+      ):(
+        <Redirect to='/' />
+      )
+    }/>
+  )
+
   useEffect(() => {
-    axios.get('http://localhost:8080/user', {withCredentials: true}).then(x => setUser(x.data));
+    ApiService.getUser().then(x => setUser(x.data));
   }, [])
 
+  if(user){
+    return (
+      <div className="routes">
+        <Router>
+          <UserContext.Provider value={{user, setUser}}>
+            <Switch>
+              <Route exact path="/">
+                {user.isAuth ? <Redirect to='profile' /> : <Login />}
+              </Route>
+              <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
+              <PrivateRoute exact path="/profile" component={Profile}></PrivateRoute>
+            </Switch>
+          </UserContext.Provider>
+        </Router>
+      </div>
+    );
+  }
+
   return (
-    <div className="routes">
-      <Router>
-        <UserContext.Provider value={{user, setUser}}>
-          <Nav />
-          <Switch>
-            <Route exact path="/" component={Login}></Route>
-            <Route exact path="/home" component={Home}></Route>
-            <Route exact path="/profile" component={Profile}></Route>
-          </Switch>
-        </UserContext.Provider>
-      </Router>
+    <div>
+      Loading...
     </div>
-  );
+  )
 }
 
 export default Routes;

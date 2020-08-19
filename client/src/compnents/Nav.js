@@ -9,12 +9,12 @@ function Nav() {
     <nav className="nav">
       <h3>Logo</h3>
       <div className="nav_links">
-        <NavLink to="/">Login</NavLink>
         <NavLink to="/home">Home</NavLink>
         <NavLink to="/profile">Profile</NavLink>
         <div className="tweet" onClick={() => {setDisplay(!display)}}>Tweet</div>
-        {display && <TweetForm state={{display, setDisplay}}/>}
+        <a href="http://localhost:8080/auth/logout">Logout</a>
       </div>
+      {display && <TweetForm state={{display, setDisplay}}/>}
     </nav>
   );
 }
