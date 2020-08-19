@@ -13,6 +13,19 @@ class UserService {
   async getAllTweets(userId){
     return User.findById(userId).populate('tweetsCreated');
   }
+
+  async addLiked(user, tweetId){
+    User.findById(user).then(user => {
+      if(user.tweetsLiked.includes(tweetId)){
+        console.log("User Unliked Tweet");
+        user.tweetsLiked.pull(tweetId);
+      } else{
+        console.log("User liked Tweet");
+        user.tweetsLiked.push(tweetId);
+      }
+      return user.save();
+    })
+  }
 }
 
 module.exports = UserService;

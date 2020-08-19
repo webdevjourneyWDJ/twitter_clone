@@ -14,6 +14,20 @@ class TweetService {
   async getAllTweets(){
     return Tweet.find().populate('creator', ['name', 'email']);
   }
+
+  async addLiked(user, tweetId){
+    Tweet.findById(tweetId).then(tweet => {
+      if(tweet.liked.includes(user)){
+        console.log('Disliked Tweet');
+        tweet.liked.pull(user);
+      }
+      else {
+        console.log('Liked Tweet');
+        tweet.liked.push(user);
+      }
+      return tweet.save();
+    })
+  }
 }
 
 module.exports = TweetService;

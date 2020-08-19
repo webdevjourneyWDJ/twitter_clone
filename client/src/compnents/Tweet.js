@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import classNames from 'classnames';
 
-function Tweet({message, userName}) {
+function Tweet({message, userName, tweetId, tweetLiked, userId}) {
+  const [liked, setLiked] = useState(tweetLiked.includes(userId));
+
+  const handleLiked = () => {
+    setLiked(!liked);
+    axios.post('http://localhost:8080/tweets/liked', {tweetId}, {withCredentials: true});
+  }
 
   return (
     <div className="card">
@@ -14,7 +22,10 @@ function Tweet({message, userName}) {
           <div>{message}</div>
         </div>
         <div className="items">
-          <FontAwesomeIcon icon={['fas', 'heart']} className="subscription-tag"/>
+          <FontAwesomeIcon 
+            icon={['fas', 'heart']}
+            className={classNames("subscription-tag", {liked})} 
+            onClick={handleLiked}/>
           <FontAwesomeIcon icon={['fas', 'comment']} className="subscription-tag"/>
         </div>
       </div>

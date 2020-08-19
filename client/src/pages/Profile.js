@@ -16,7 +16,7 @@ function Profile() {
     <div className="profile section">
       <h1>Profile page</h1>
       <div className="tweet_container">
-        {tweets && tweets.map(tweet => <Tweet message={tweet.message} userName={user.name} key={tweet._id}/>)}
+        {tweets && tweets.map(tweet => <Tweet userId={user.userId} tweetLiked={tweet.liked} message={tweet.message} tweetId={tweet._id} userName={user.name} key={tweet._id}/>)}
       </div>
     </div>
   );

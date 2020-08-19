@@ -14,6 +14,10 @@ const UserSchema = mongoose.Schema({
   tweetsCreated: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tweet'
+  }],
+  tweetsLiked: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tweet'
   }]
 }, { timestamps: true });
 

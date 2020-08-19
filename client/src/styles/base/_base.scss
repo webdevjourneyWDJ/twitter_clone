@@ -24,3 +24,10 @@ body {
   align-items: center;
   margin-top: 8rem;
 }
+
+.tweet_container {
+  @include displayFlex(row, space-between);
+  padding: 0 8rem;
+  margin-top: 5rem;
+  width: 80%;
+}
