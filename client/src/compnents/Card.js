@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 import ApiService from '../services/ApiService';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,6 +15,7 @@ function Tweet({message, userName, tweetId, tweetLiked, userId}) {
 
   return (
     <div className="card">
+    <Link to={`${userName}/tweet/${tweetId}`} className="card_overlay" />
       <div className="grid">
         <div className="items card-heading">
           <div className="title">{userName}</div>

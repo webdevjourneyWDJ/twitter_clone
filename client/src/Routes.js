@@ -4,6 +4,7 @@ import Nav from './compnents/Nav';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import Tweet from './pages/Tweet';
 
 import {UserContext} from './UserContext';
 import ApiService from './services/ApiService';
@@ -35,10 +36,11 @@ function Routes() {
           <UserContext.Provider value={{user, setUser}}>
             <Switch>
               <Route exact path="/">
-                {user.isAuth ? <Redirect to='profile' /> : <Login />}
+                {user.isAuth ? <Redirect to='home' /> : <Login />}
               </Route>
               <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
               <PrivateRoute exact path="/profile" component={Profile}></PrivateRoute>
+              <PrivateRoute exact path="/:user/tweet/:tweetId" component={Tweet}></PrivateRoute>
             </Switch>
           </UserContext.Provider>
         </Router>

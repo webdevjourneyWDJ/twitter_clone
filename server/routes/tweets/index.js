@@ -10,6 +10,11 @@ module.exports = (params) => {
     return res.json({tweets})
   })
 
+  router.get('/:tweetId', async (req, res, next) => {
+    const tweet = await tweetService.getTweetById(req.params.tweetId);
+    return res.json({tweet})
+  })
+
   router.post('/liked', async(req, res, next) => {
     try {
       await userService.addLiked(req.user._id, req.body.tweetId);

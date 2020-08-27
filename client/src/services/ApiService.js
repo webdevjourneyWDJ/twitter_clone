@@ -4,6 +4,9 @@ export default {
   getUser() {
     return Api().get('user');
   },
+  getTweetById(tweetId) {
+    return Api().get(`tweets/${tweetId}`);
+  },
   getAllTweets() {
     return Api().get('tweets');
   },

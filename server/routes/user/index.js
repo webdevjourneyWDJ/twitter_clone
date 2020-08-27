@@ -20,6 +20,7 @@ module.exports = (params) => {
   router.get('/tweets', async (req, res, next) => {
     try {
       const userTweets = await userService.getAllTweets(req.user._id);
+      console.log(userTweets);
       return res.json({tweets: userTweets.tweetsCreated});
     } catch (err) {
       return next(err);

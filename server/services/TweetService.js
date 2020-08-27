@@ -11,6 +11,10 @@ class TweetService {
     return tweet.save();
   }
 
+  async getTweetById(tweetId){
+    return Tweet.findById(tweetId).populate('creator', ['name', 'email']);
+  }
+
   async getAllTweets(){
     return Tweet.find().populate('creator', ['name', 'email']);
   }
