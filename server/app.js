@@ -9,12 +9,14 @@ const routes = require('./routes');
 
 const TweetService = require('./services/TweetService');
 const UserService = require('./services/UserService');
+const CommentService = require('./services/CommentService');
 
 module.exports = (config) => {
   const log = config.log();
 
   const tweetService = new TweetService();
   const userService = new UserService();
+  const commentService = new CommentService();
 
   app.use(cors({credentials: true, origin:"http://localhost:3000"}));
   app.use(express.urlencoded({extended: true}));
@@ -40,7 +42,7 @@ module.exports = (config) => {
   app.use(auth.initialize);
   app.use(auth.session);
 
-  app.use('/', routes({tweetService, userService}));
+  app.use('/', routes({tweetService, userService, commentService}));
 
   // eslint-disable-next-line no-unused-vars
   app.use((error, req, res, next) => {

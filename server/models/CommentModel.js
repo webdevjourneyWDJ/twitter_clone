@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const TweetSchema = mongoose.Schema({
-  message: {
+const CommentSchema = mongoose.Schema({
+  comment: {
     type: String,
     required: true
   },
@@ -13,14 +13,14 @@ const TweetSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
-  comments: [{
+  tweet: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  }]
+    ref: 'Tweet'
+  }
 }, { timestamps: true });
 
-const Tweet = mongoose.model('Tweet', TweetSchema);
+const Comment = mongoose.model('Comment', CommentSchema);
 
 module.exports = {
-  Tweet
+  Comment
 }

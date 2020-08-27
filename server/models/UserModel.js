@@ -18,6 +18,10 @@ const UserSchema = mongoose.Schema({
   tweetsLiked: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tweet'
+  }],
+  commentsCreated: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment'
   }]
 }, { timestamps: true });
 
