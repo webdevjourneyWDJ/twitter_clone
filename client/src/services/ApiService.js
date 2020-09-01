@@ -18,5 +18,8 @@ export default {
   },
   postTweetLiked(tweetId) {
     return Api().post('tweets/liked', {tweetId});
-  }
+  },
+  postComment(comment, tweetId) {
+    return Api().post('/comments', {comment, tweetId});
+  },
 }

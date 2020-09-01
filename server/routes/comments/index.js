@@ -6,8 +6,8 @@ module.exports = (params) => {
   const {commentService} = params;
 
   router.post('/', async (req, res, next) => {
-    const {comment, userId, tweetId} = req.body;
-    const commentSaved = await commentService.addComment(comment, userId, tweetId);
+    const {comment, tweetId} = req.body;
+    const commentSaved = await commentService.addComment(comment, req.user._id, tweetId);
     console.log("commentSaved", commentSaved);
     return res.json({commentSaved})
   });

@@ -12,7 +12,9 @@ class TweetService {
   }
 
   async getTweetById(tweetId){
-    return Tweet.findById(tweetId).populate('creator', ['name', 'email']);
+    return Tweet.findById(tweetId)
+      .populate('creator', ['name', 'email'])
+      .populate('comments');
   }
 
   async getAllTweets(){

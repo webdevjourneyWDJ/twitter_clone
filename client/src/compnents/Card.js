@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CommentForm from './CommentForm';
 import {Link} from 'react-router-dom';
 import ApiService from '../services/ApiService';
 
@@ -7,6 +8,7 @@ import classNames from 'classnames';
 
 function Tweet({message, userName, tweetId, tweetLiked, userId}) {
   const [liked, setLiked] = useState(tweetLiked.includes(userId));
+  const [commentForm, setCommentForm] = useState(false);
 
   const handleLiked = () => {
     setLiked(!liked);
@@ -28,9 +30,13 @@ function Tweet({message, userName, tweetId, tweetLiked, userId}) {
             icon={['fas', 'heart']}
             className={classNames("subscription-tag", {liked})} 
             onClick={handleLiked}/>
-          <FontAwesomeIcon icon={['fas', 'comment']} className="subscription-tag"/>
+          <FontAwesomeIcon 
+            icon={['fas', 'comment']} 
+            className="subscription-tag"
+            onClick={() => setCommentForm(!commentForm)}/>
         </div>
       </div>
+      {commentForm && <CommentForm state={{setCommentForm}} tweetId={tweetId}/>}
     </div>
   );
 }
