@@ -14,7 +14,13 @@ class TweetService {
   async getTweetById(tweetId){
     return Tweet.findById(tweetId)
       .populate('creator', ['name', 'email'])
-      .populate('comments');
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'creator',
+          populate: 'commentsCreated'
+        }
+      });
   }
 
   async getAllTweets(){

@@ -3,7 +3,7 @@ const router = express.Router();
 
 module.exports = (params) => {
 
-  const {tweetService, userService} = params;
+  const {tweetService, userService, config} = params;
 
   router.get('/', (req, res, next) => {
     if(req.isAuthenticated()){
@@ -19,8 +19,18 @@ module.exports = (params) => {
 
   router.get('/tweets', async (req, res, next) => {
     try {
+      const client = config.database.redis.client;
+      const util = require('util');
+      client.getAsync = util.promisify(client.get);
+
+      const cachedUserTweets = await client.getAsync(`${req.user._id}`);
+      if(cachedUserTweets){
+        console.log("Cached Tweets");
+        return res.json({tweets: JSON.parse(cachedUserTweets).tweetsCreated});
+      }
+
       const userTweets = await userService.getAllTweets(req.user._id);
-      console.log(userTweets);
+      client.set(`${req.user._id}`, JSON.stringify(userTweets));
       return res.json({tweets: userTweets.tweetsCreated});
     } catch (err) {
       return next(err);

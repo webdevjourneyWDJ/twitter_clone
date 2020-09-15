@@ -42,7 +42,7 @@ module.exports = (config) => {
   app.use(auth.initialize);
   app.use(auth.session);
 
-  app.use('/', routes({tweetService, userService, commentService}));
+  app.use('/', routes({tweetService, userService, commentService, config}));
 
   // eslint-disable-next-line no-unused-vars
   app.use((error, req, res, next) => {
