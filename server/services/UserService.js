@@ -11,7 +11,7 @@ class UserService {
   }
 
   async getAllTweets(userId){
-    return User.findById(userId).populate('tweetsCreated');
+    return User.findById(userId).populate('tweetsCreated').cache({key: userId, nestedHashKey: "allTweets"});
   }
 
   async addLiked(user, tweetId){

@@ -13,6 +13,8 @@ redisClient.on('ready', () => {
 
 config.database.redis.client = redisClient;
 
+require('../lib/cache');
+
 const app = require('../app')(config);
 
 const server = http.createServer(app);

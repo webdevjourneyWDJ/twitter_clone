@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const beGoneCache = require('../../middleware/beGoneCache');
+
 module.exports = (params) => {
 
   const {tweetService, userService, config} = params;
@@ -19,25 +21,14 @@ module.exports = (params) => {
 
   router.get('/tweets', async (req, res, next) => {
     try {
-      const client = config.database.redis.client;
-      const util = require('util');
-      client.getAsync = util.promisify(client.get);
-
-      const cachedUserTweets = await client.getAsync(`${req.user._id}`);
-      if(cachedUserTweets){
-        console.log("Cached Tweets");
-        return res.json({tweets: JSON.parse(cachedUserTweets).tweetsCreated});
-      }
-
       const userTweets = await userService.getAllTweets(req.user._id);
-      client.set(`${req.user._id}`, JSON.stringify(userTweets));
       return res.json({tweets: userTweets.tweetsCreated});
     } catch (err) {
       return next(err);
     }
   })
 
-  router.post('/tweet', async (req, res, next) => {
+  router.post('/tweet', beGoneCache, async (req, res, next) => {
     const {message} = req.body;
     try {
       const tweet = await tweetService.addTweet(message, req.user._id);
