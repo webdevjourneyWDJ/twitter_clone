@@ -6,7 +6,7 @@ import ApiService from '../services/ApiService';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from 'classnames';
 
-function Tweet({message, userName, tweetId, tweetLiked, userId}) {
+function Tweet({message, userName, tweetId, tweetLiked, userId, image}) {
   const [liked, setLiked] = useState(tweetLiked.includes(userId));
   const [commentForm, setCommentForm] = useState(false);
 
@@ -24,6 +24,7 @@ function Tweet({message, userName, tweetId, tweetLiked, userId}) {
         </div>
         <div className="items card-content">
           <div>{message}</div>
+          {image && <img src={`https://twitter-clone-og.s3.amazonaws.com/${image}`} alt="image"/>}
         </div>
         <div className="items">
           <FontAwesomeIcon 

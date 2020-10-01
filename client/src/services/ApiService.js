@@ -13,8 +13,14 @@ export default {
   getUserTweets() {
     return Api().get('user/tweets');
   },
-  postTweet(message) {
-    return Api().post('user/tweet', {message});
+  async postTweet(message, image) {
+    const imageConfig = await Api().get('/upload');
+    await Api().put(imageConfig.data.url, image, {
+      headers:{
+        'Content-Type': image.type
+      }
+    });
+    return Api().post('user/tweet', {message, image: imageConfig.data.key});
   },
   postTweetLiked(tweetId) {
     return Api().post('tweets/liked', {tweetId});

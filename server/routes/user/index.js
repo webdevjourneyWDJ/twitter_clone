@@ -29,9 +29,9 @@ module.exports = (params) => {
   })
 
   router.post('/tweet', beGoneCache, async (req, res, next) => {
-    const {message} = req.body;
+    const {message, image} = req.body;
     try {
-      const tweet = await tweetService.addTweet(message, req.user._id);
+      const tweet = await tweetService.addTweet(message, image, req.user._id);
       await userService.addTweet(req.user._id, tweet);
       return res.json({message: "added tweet to user"});
     } catch (err) {

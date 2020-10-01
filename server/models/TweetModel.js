@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const TweetSchema = mongoose.Schema({
+  image: {
+    type: String
+  },
   message: {
     type: String,
     required: true

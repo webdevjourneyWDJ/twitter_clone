@@ -2,8 +2,9 @@ const {Tweet} = require('../models/TweetModel');
 
 class TweetService {
   
-  async addTweet(message, userId){
+  async addTweet(message, image, userId){
     const tweet = new Tweet({
+      image,
       message,
       creator: userId
     });

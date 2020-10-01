@@ -16,7 +16,7 @@ function Home() {
     <div className="home section">
       <h1>Home page</h1>
       <div className="tweet_container">
-        {tweets && tweets.map(tweet => <Card userId={tweet.creator._id} tweetLiked={tweet.liked} message={tweet.message} tweetId={tweet._id} userName={tweet.creator.name} key={tweet._id}/>)}
+        {tweets && tweets.map(tweet => <Card userId={tweet.creator._id} image={tweet.image} tweetLiked={tweet.liked} message={tweet.message} tweetId={tweet._id} userName={tweet.creator.name} key={tweet._id}/>)}
       </div>
     </div>
   );
