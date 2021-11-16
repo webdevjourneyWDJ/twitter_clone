@@ -9,7 +9,7 @@
   "author": "WDJ",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.764.0",
+    "aws-sdk": "^2.814.0",
     "bunyan": "^1.8.12",
     "connect-redis": "^5.0.0",
     "cors": "^2.8.5",
